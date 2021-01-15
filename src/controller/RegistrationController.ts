@@ -11,7 +11,6 @@ export const registerUser = async(req:Request,res:Response): Promise<Response> =
     console.log(response)
 
     if(response != null){
-
         res.statusCode = 200;
         return res.json(response);
     }else{

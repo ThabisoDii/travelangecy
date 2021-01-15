@@ -6,13 +6,16 @@ export class Flight {
     @PrimaryGeneratedColumn('uuid')
     id: string;
     @Column("text")
-    departure: string;
+    departure_airport: string;
     @Column("text")
-    arrival: string;
+    arrival_airport: string;
     @Column("text")
     departure_time: string;
     @Column("text")
     arrival_time: string;
+    @Column("text")
+    date: string;
+    
 
     
 }

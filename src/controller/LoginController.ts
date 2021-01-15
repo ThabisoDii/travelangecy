@@ -1,32 +1,22 @@
-/*export const signIn = async(req:Request,res:Response): Promise<Response> => {
+const registerService = require('../service/RegistrationService')
+const loginService = require('../service/LoginService')
+import { response } from "express";
+import {Request,Response} from "express"
+var http = require('http');
 
 
-    /*
+export const signIn = async(req:Request,res:Response): Promise<Response> => {
 
-    //Get user from database
-    const userRepository = getRepository(User);
-    let user: User;
-    try {
-      user = await userRepository.findOneOrFail({ where: { username } });
-    } catch (error) {
-      res.status(401).send();
+    var response = await loginService.signIn(req);
+    console.log(response)
+
+    if(response != null){
+        res.statusCode = 200;
+        return res.json(response);
+    }else{
+        res.statusCode = 500;
+        return res.json("failed to login");
+
     }
-
-    //Check if encrypted password match
-    if (!user.checkIfUnencryptedPasswordIsValid(password)) {
-      res.status(401).send();
-      return;
-    }
-
-    //Sing JWT, valid for 1 hour
-    const token = jwt.sign(
-      { userId: user.id, username: user.username },
-      config.jwtSecret,
-      { expiresIn: "1h" }
-    );
     
-
-    return "";
 }
-
-*/

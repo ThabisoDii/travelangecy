@@ -9,6 +9,8 @@ export class Ticket {
     departure: string;
     @Column("text")
     arrival: string;
+    @Column()
+    isApproved: boolean;
   
 
     
