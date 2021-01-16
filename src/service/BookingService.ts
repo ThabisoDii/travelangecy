@@ -1,19 +1,16 @@
 var http = require('http');
 import { response } from "express";
 import {Request,Response} from "express"
-import { User } from "../entity/User";
-const bcrypt = require("bcrypt")
+import { Ticket } from "../entity/Ticket";
 var http = require('http');
 import { Flight } from "../entity/Flight";
 import { getRepository } from 'typeorm';
-
 
 export const getFlights = async(req:Request,res:Response): Promise<any> => {
 
     try {
 
         const flightRepository = getRepository(Flight);
-        
         const allFlight = await flightRepository.find();
         
             return allFlight;
@@ -28,43 +25,30 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
     try {
 
-        const flightRepository = getRepository(Flight);
+        const ticktRepository = getRepository(Ticket);
+        console.log(req.body.passanger_email)
+
+            let ticket = new Ticket();
+            ticket.passanger_email = req.body.passanger_email.toLowerCase();
+            ticket.isApproved = req.body.isApproved;
+
+            let flight = new Flight();
+            flight.id = req.body.flight_id
+            flight.departure_airport = req.body.departure_airport;
+            flight.arrival_airport = req.body.arrival_airport;
+            flight.departure_time = req.body.departure_time;
+            flight.arrival_time = req.body.arrival_time;
+
+            ticket.flight = flight;
         
-        const allFlight = await flightRepository.find();
+            const theTicket = await ticktRepository.save(ticket);
         
-            return allFlight;
+        return ticket;
         
       } catch (error) {
           return error;
       }
 }
 
-
-/*export const getFlights = async(req:Request,res:Response): Promise<any> => {
-
-    try {
-
-        const userLoginRepository = getRepository(Credentials);
-        const userRepository = getRepository(User);
-
-
-        const allFlights = await repository.find();
-        
-        if(userLogin == null){
-            return userLogin;
-        }else{
-
-            if(await bcrypt.compare(req.body.passwordd,userLogin.passwordd)){
-                let userDetails = await userRepository.findOne({ email: req.body.email.toLowerCase()});
-                return userDetails;
-            }
-
-        } 
-      } catch (error) {
-          return error;
-      }
-
-    
-}*/
 
 
