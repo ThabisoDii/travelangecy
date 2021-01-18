@@ -68,7 +68,6 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 ticktRepository = typeorm_1.getRepository(Ticket_1.Ticket);
-                console.log(req.body.passanger_email);
                 ticket = new Ticket_1.Ticket();
                 ticket.passanger_email = req.body.passanger_email.toLowerCase();
                 ticket.isApproved = req.body.isApproved;
@@ -78,7 +77,6 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 flight.arrival_airport = req.body.arrival_airport;
                 flight.departure_time = req.body.departure_time;
                 flight.arrival_time = req.body.arrival_time;
-                //find booked flight and save it ===> 350285f2-5d8a-417a-b154-498577f117d9
                 ticket.flight = flight;
                 return [4 /*yield*/, ticktRepository.save(ticket)];
             case 1:

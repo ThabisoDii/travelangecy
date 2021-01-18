@@ -21,6 +21,10 @@ var Ticket = /** @class */ (function () {
     ], Ticket.prototype, "id", void 0);
     __decorate([
         typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], Ticket.prototype, "passanger_email", void 0);
+    __decorate([
+        typeorm_1.Column(),
         __metadata("design:type", Boolean)
     ], Ticket.prototype, "isApproved", void 0);
     __decorate([

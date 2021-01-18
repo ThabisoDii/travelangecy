@@ -6,7 +6,6 @@ var http = require('http');
 
 export const registerUser = async(req:Request,res:Response): Promise<Response> => {
 
-
     var response = await registerService.registerUser(req);
     console.log(response)
 

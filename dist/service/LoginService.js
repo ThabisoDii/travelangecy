@@ -64,7 +64,6 @@ var signIn = function (req, res) { return __awaiter(void 0, void 0, void 0, func
             case 4:
                 userDetails = _a.sent();
                 token = jwt.sign({ userDetails: userDetails }, 'shhhhh');
-                console.log(token);
                 return [2 /*return*/, token];
             case 5: return [3 /*break*/, 7];
             case 6:

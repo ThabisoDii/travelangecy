@@ -36,72 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.getFlights = void 0;
-var registerService = require('../service/RegistrationService');
-var bookService = require('../service/BookingService');
+exports.approveTicket = void 0;
 var http = require('http');
-var jwt = require('jsonwebtoken');
-var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_1;
+var Ticket_1 = require("../entity/Ticket");
+var http = require('http');
+var Flight_1 = require("../entity/Flight");
+var typeorm_1 = require("typeorm");
+var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var ticketRepository, flightRepository, flight, ticketToUpdate, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 5];
-                bearer = bearerHeader.split(' ');
-                _a.label = 1;
+                _a.trys.push([0, 5, , 6]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
+                return [4 /*yield*/, flightRepository.findOne({ id: req.body.flightId })];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                bearerToken = bearer[1];
-                tokenVerification = jwt.verify(bearerToken, 'shhhhh');
-                return [4 /*yield*/, bookService.getFlights()];
+                flight = _a.sent();
+                return [4 /*yield*/, ticketRepository.findOne({ passanger_email: req.body.passanger_email, flight: flight })];
             case 2:
-                response = _a.sent();
-                if (response != null) {
-                    res.statusCode = 200;
-                    return [2 /*return*/, res.json(response)];
-                }
-                else {
-                    res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to get flights")];
-                }
-                return [3 /*break*/, 4];
+                ticketToUpdate = _a.sent();
+                if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
+                ticketToUpdate.isApproved = req.body.isApproved;
+                return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
             case 3:
-                err_1 = _a.sent();
-                return [2 /*return*/, res.sendStatus(403)];
-            case 4: return [3 /*break*/, 6];
-            case 5: 
-            // Forbidden
-            return [2 /*return*/, res.sendStatus(403)];
+                ticketToUpdate = _a.sent();
+                _a.label = 4;
+            case 4: return [2 /*return*/, ticketToUpdate];
+            case 5:
+                error_1 = _a.sent();
+                return [2 /*return*/, error_1];
             case 6: return [2 /*return*/];
         }
     });
 }); };
-exports.getFlights = getFlights;
-var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, response;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 2];
-                return [4 /*yield*/, bookService.bookFlight(req)];
-            case 1:
-                response = _a.sent();
-                if (response != null) {
-                    res.statusCode = 200;
-                    return [2 /*return*/, res.json(response)];
-                }
-                else {
-                    res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to book a ticket")];
-                }
-                return [3 /*break*/, 3];
-            case 2: 
-            // Forbidden
-            return [2 /*return*/, res.sendStatus(403)];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); };
-exports.bookFlight = bookFlight;
+exports.approveTicket = approveTicket;

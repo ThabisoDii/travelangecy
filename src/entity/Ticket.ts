@@ -6,10 +6,10 @@ export class Ticket {
 
     @PrimaryGeneratedColumn('uuid')
     id: string;
+    @Column()
     passanger_email: string;
     @Column()
     isApproved: boolean;
-
     @OneToOne(type => Flight)
     @JoinColumn()
     flight: Flight;

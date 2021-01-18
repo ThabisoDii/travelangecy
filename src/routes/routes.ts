@@ -5,6 +5,7 @@ const routes = Router();
 import {registerUser} from "../controller/RegistrationController"
 import {signIn} from "../controller/LoginController"
 import {getFlights,bookFlight} from "../controller/BookingController"
+import {approveTicket} from "../controller/AdminController"
 
 
 routes.use(cors());
@@ -21,5 +22,6 @@ routes.post("/register",registerUser);
 routes.post("/login",signIn);
 routes.get("/get/flights",getFlights);
 routes.post("/book-flight",bookFlight);
+routes.post("/approve-ticket",approveTicket);
 
 export default routes;

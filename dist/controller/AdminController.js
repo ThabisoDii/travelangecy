@@ -36,56 +36,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.getFlights = void 0;
-var registerService = require('../service/RegistrationService');
+exports.approveTicket = void 0;
+var adminService = require('../service/AdminService');
 var bookService = require('../service/BookingService');
 var http = require('http');
-var jwt = require('jsonwebtoken');
-var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_1;
+var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var response;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 5];
-                bearer = bearerHeader.split(' ');
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                bearerToken = bearer[1];
-                tokenVerification = jwt.verify(bearerToken, 'shhhhh');
-                return [4 /*yield*/, bookService.getFlights()];
-            case 2:
-                response = _a.sent();
-                if (response != null) {
-                    res.statusCode = 200;
-                    return [2 /*return*/, res.json(response)];
-                }
-                else {
-                    res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to get flights")];
-                }
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                return [2 /*return*/, res.sendStatus(403)];
-            case 4: return [3 /*break*/, 6];
-            case 5: 
-            // Forbidden
-            return [2 /*return*/, res.sendStatus(403)];
-            case 6: return [2 /*return*/];
-        }
-    });
-}); };
-exports.getFlights = getFlights;
-var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, response;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 2];
-                return [4 /*yield*/, bookService.bookFlight(req)];
+            case 0: return [4 /*yield*/, adminService.approveTicket(req)];
             case 1:
                 response = _a.sent();
                 if (response != null) {
@@ -94,14 +53,10 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 }
                 else {
                     res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to book a ticket")];
+                    return [2 /*return*/, res.json("failed to login")];
                 }
-                return [3 /*break*/, 3];
-            case 2: 
-            // Forbidden
-            return [2 /*return*/, res.sendStatus(403)];
-            case 3: return [2 /*return*/];
+                return [2 /*return*/];
         }
     });
 }); };
-exports.bookFlight = bookFlight;
+exports.approveTicket = approveTicket;

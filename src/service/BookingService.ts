@@ -13,7 +13,7 @@ export const getFlights = async(req:Request,res:Response): Promise<any> => {
         const flightRepository = getRepository(Flight);
         const allFlight = await flightRepository.find();
         
-            return allFlight;
+        return allFlight;
         
       } catch (error) {
           return error;
@@ -25,8 +25,7 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
     try {
 
-        const ticktRepository = getRepository(Ticket);
-        console.log(req.body.passanger_email)
+            const ticktRepository = getRepository(Ticket);
 
             let ticket = new Ticket();
             ticket.passanger_email = req.body.passanger_email.toLowerCase();

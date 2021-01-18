@@ -9,7 +9,7 @@ var routes_1 = __importDefault(require("./routes/routes"));
 var typeorm_1 = require("typeorm");
 var app = express_1.default();
 typeorm_1.createConnection().then(function (connection) {
-    console.log("Example !!!!");
+    console.log("Database connect successfully !!!!");
 }).catch(function (error) { return console.log(error); });
 app.use(express_1.default.json());
 app.use(cors_1.default());

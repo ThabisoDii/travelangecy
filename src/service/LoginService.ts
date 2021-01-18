@@ -25,13 +25,10 @@ export const signIn = async(req:Request,res:Response): Promise<any> => {
             if(await bcrypt.compare(req.body.passwordd,userLogin.passwordd)){
 
                 let userDetails = await userRepository.findOne({ email: req.body.email.toLowerCase()});
-                //return userDetails;
                 
                 var token = jwt.sign({ userDetails }, 'shhhhh');
-                console.log(token)
 
                 return token;
-                  
             }
 
         } 
