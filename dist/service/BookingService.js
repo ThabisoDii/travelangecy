@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.getFlights = void 0;
+exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
 var http = require('http');
 var Ticket_1 = require("../entity/Ticket");
 var http = require('http');
@@ -61,8 +61,27 @@ var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 exports.getFlights = getFlights;
+var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var flightRepository, allFlight, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
+                return [4 /*yield*/, flightRepository.find({ departure_airport: "Diphare", arrival_airport: "standard", departure_date: "123", arrival_date: "123" })];
+            case 1:
+                allFlight = _a.sent();
+                return [2 /*return*/, allFlight];
+            case 2:
+                error_2 = _a.sent();
+                return [2 /*return*/, error_2];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.searchFlights = searchFlights;
 var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticktRepository, ticket, flight, theTicket, error_2;
+    var ticktRepository, ticket, flight, theTicket, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -75,16 +94,16 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 flight.id = req.body.flight_id;
                 flight.departure_airport = req.body.departure_airport;
                 flight.arrival_airport = req.body.arrival_airport;
-                flight.departure_time = req.body.departure_time;
-                flight.arrival_time = req.body.arrival_time;
+                flight.departure_date = req.body.departure_date;
+                flight.arrival_date = req.body.arrival_date;
                 ticket.flight = flight;
                 return [4 /*yield*/, ticktRepository.save(ticket)];
             case 1:
                 theTicket = _a.sent();
                 return [2 /*return*/, ticket];
             case 2:
-                error_2 = _a.sent();
-                return [2 /*return*/, error_2];
+                error_3 = _a.sent();
+                return [2 /*return*/, error_3];
             case 3: return [2 /*return*/];
         }
     });

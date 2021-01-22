@@ -27,17 +27,17 @@ var Flight = /** @class */ (function () {
         __metadata("design:type", String)
     ], Flight.prototype, "arrival_airport", void 0);
     __decorate([
-        typeorm_1.Column("text"),
-        __metadata("design:type", String)
-    ], Flight.prototype, "departure_time", void 0);
+        typeorm_1.Column("date"),
+        __metadata("design:type", Date)
+    ], Flight.prototype, "departure_date", void 0);
     __decorate([
-        typeorm_1.Column("text"),
-        __metadata("design:type", String)
-    ], Flight.prototype, "arrival_time", void 0);
+        typeorm_1.Column("date"),
+        __metadata("design:type", Date)
+    ], Flight.prototype, "arrival_date", void 0);
     __decorate([
-        typeorm_1.Column("text"),
-        __metadata("design:type", String)
-    ], Flight.prototype, "date", void 0);
+        typeorm_1.Column(""),
+        __metadata("design:type", Number)
+    ], Flight.prototype, "qantity", void 0);
     Flight = __decorate([
         typeorm_1.Entity()
     ], Flight);

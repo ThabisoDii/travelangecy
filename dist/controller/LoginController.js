@@ -47,7 +47,6 @@ var signIn = function (req, res) { return __awaiter(void 0, void 0, void 0, func
             case 0: return [4 /*yield*/, loginService.signIn(req)];
             case 1:
                 response = _a.sent();
-                console.log(response);
                 if (response != null) {
                     res.statusCode = 200;
                     return [2 /*return*/, res.json(response)];

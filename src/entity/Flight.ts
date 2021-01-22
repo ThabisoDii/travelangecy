@@ -9,12 +9,12 @@ export class Flight {
     departure_airport: string;
     @Column("text")
     arrival_airport: string;
-    @Column("text")
-    departure_time: string;
-    @Column("text")
-    arrival_time: string;
-    @Column("text")
-    date: string;
+    @Column("date")
+    departure_date: Date;
+    @Column("date")
+    arrival_date: Date;
+    @Column("")
+    qantity: number;
     
 
     

@@ -22,6 +22,7 @@ routes.use(function (req, res, next) {
 routes.post("/register", RegistrationController_1.registerUser);
 routes.post("/login", LoginController_1.signIn);
 routes.get("/get/flights", BookingController_1.getFlights);
+routes.post("/search/flights", BookingController_1.searchFlights);
 routes.post("/book-flight", BookingController_1.bookFlight);
 routes.post("/approve-ticket", AdminController_1.approveTicket);
 exports.default = routes;

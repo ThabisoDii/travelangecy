@@ -4,7 +4,7 @@ const routes = Router();
 
 import {registerUser} from "../controller/RegistrationController"
 import {signIn} from "../controller/LoginController"
-import {getFlights,bookFlight} from "../controller/BookingController"
+import {getFlights,bookFlight,searchFlights} from "../controller/BookingController"
 import {approveTicket} from "../controller/AdminController"
 
 
@@ -21,6 +21,7 @@ routes.use(function (req,res,next){
 routes.post("/register",registerUser);
 routes.post("/login",signIn);
 routes.get("/get/flights",getFlights);
+routes.post("/search/flights",searchFlights);
 routes.post("/book-flight",bookFlight);
 routes.post("/approve-ticket",approveTicket);
 

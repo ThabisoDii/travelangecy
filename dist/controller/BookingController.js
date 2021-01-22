@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.getFlights = void 0;
+exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
 var registerService = require('../service/RegistrationService');
 var bookService = require('../service/BookingService');
 var http = require('http');
@@ -68,6 +68,7 @@ var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();
+                // if token is not valie
                 return [2 /*return*/, res.sendStatus(403)];
             case 4: return [3 /*break*/, 6];
             case 5: 
@@ -78,15 +79,59 @@ var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 exports.getFlights = getFlights;
-var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, response;
+var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 2];
-                return [4 /*yield*/, bookService.bookFlight(req)];
+                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 5];
+                bearer = bearerHeader.split(' ');
+                _a.label = 1;
             case 1:
+                _a.trys.push([1, 3, , 4]);
+                bearerToken = bearer[1];
+                tokenVerification = jwt.verify(bearerToken, 'shhhhh');
+                return [4 /*yield*/, bookService.searchFlights()];
+            case 2:
+                response = _a.sent();
+                if (response != null) {
+                    res.statusCode = 200;
+                    return [2 /*return*/, res.json(response)];
+                }
+                else {
+                    res.statusCode = 500;
+                    return [2 /*return*/, res.json("failed to get flights")];
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _a.sent();
+                // if token is not valie
+                return [2 /*return*/, res.sendStatus(403)];
+            case 4: return [3 /*break*/, 6];
+            case 5: 
+            // Forbidden
+            return [2 /*return*/, res.sendStatus(403)];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); };
+exports.searchFlights = searchFlights;
+var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                bearerHeader = req.headers['authorization'];
+                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 5];
+                bearer = bearerHeader.split(' ');
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                bearerToken = bearer[1];
+                tokenVerification = jwt.verify(bearerToken, 'shhhhh');
+                return [4 /*yield*/, bookService.bookFlight(req)];
+            case 2:
                 response = _a.sent();
                 if (response != null) {
                     res.statusCode = 200;
@@ -96,11 +141,16 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                     res.statusCode = 500;
                     return [2 /*return*/, res.json("failed to book a ticket")];
                 }
-                return [3 /*break*/, 3];
-            case 2: 
+                return [3 /*break*/, 4];
+            case 3:
+                err_3 = _a.sent();
+                // if token is not valie
+                return [2 /*return*/, res.sendStatus(403)];
+            case 4: return [3 /*break*/, 6];
+            case 5: 
             // Forbidden
             return [2 /*return*/, res.sendStatus(403)];
-            case 3: return [2 /*return*/];
+            case 6: return [2 /*return*/];
         }
     });
 }); };

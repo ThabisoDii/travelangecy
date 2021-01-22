@@ -8,8 +8,7 @@ var http = require('http');
 export const signIn = async(req:Request,res:Response): Promise<Response> => {
 
     var response = await loginService.signIn(req);
-    console.log(response)
-
+  
     if(response != null){
         res.statusCode = 200;
         return res.json(response);
