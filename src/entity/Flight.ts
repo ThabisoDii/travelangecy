@@ -13,8 +13,7 @@ export class Flight {
     departure_date: Date;
     @Column("date")
     arrival_date: Date;
-    @Column("")
-    qantity: number;
+    
     
 
     

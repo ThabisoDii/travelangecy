@@ -10,6 +10,8 @@ export class Ticket {
     passanger_email: string;
     @Column()
     isApproved: boolean;
+    @Column("")
+    qantity: number;
     @OneToOne(type => Flight)
     @JoinColumn()
     flight: Flight;

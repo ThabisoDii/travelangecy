@@ -34,10 +34,6 @@ var Flight = /** @class */ (function () {
         typeorm_1.Column("date"),
         __metadata("design:type", Date)
     ], Flight.prototype, "arrival_date", void 0);
-    __decorate([
-        typeorm_1.Column(""),
-        __metadata("design:type", Number)
-    ], Flight.prototype, "qantity", void 0);
     Flight = __decorate([
         typeorm_1.Entity()
     ], Flight);
