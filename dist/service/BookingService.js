@@ -68,9 +68,10 @@ var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 flightRepository = typeorm_1.getRepository(Flight_1.Flight);
-                return [4 /*yield*/, flightRepository.find({ departure_airport: "Diphare", arrival_airport: "standard", departure_date: "123", arrival_date: "123" })];
+                return [4 /*yield*/, flightRepository.find({ departure_airport: req.body.departure_airport, arrival_airport: req.body.arrival_airport, departure_date: req.body.departure_date, arrival_date: req.body.arrival_date })];
             case 1:
                 allFlight = _a.sent();
+                console.log(allFlight + "f");
                 return [2 /*return*/, allFlight];
             case 2:
                 error_2 = _a.sent();

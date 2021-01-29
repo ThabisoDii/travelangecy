@@ -13,6 +13,10 @@ export class Flight {
     departure_date: Date;
     @Column("date")
     arrival_date: Date;
+    @Column("text")
+    departure_time: Date;// timestamp type
+    @Column("text")
+    arrival_time: Date;
     
     
 

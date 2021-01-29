@@ -23,12 +23,12 @@ export const getFlights = async(req:Request,res:Response): Promise<any> => {
 
 
 export const searchFlights = async(req:Request,res:Response): Promise<any> => {
-
+   
     try {
-
+       
         const flightRepository = getRepository(Flight);
-        const allFlight = await flightRepository.find({ departure_airport: "Diphare", arrival_airport: "standard",departure_date: "123", arrival_date: "123" });
-        
+        const allFlight = await flightRepository.find({ departure_airport: req.body.departure_airport, arrival_airport: req.body.arrival_airport,departure_date: req.body.departure_date, arrival_date: req.body.arrival_date });
+        console.log(allFlight +"f")
         return allFlight;
         
       } catch (error) {

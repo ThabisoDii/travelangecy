@@ -80,20 +80,13 @@ var getFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, 
 }); };
 exports.getFlights = getFlights;
 var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_2;
+    var response, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                bearerHeader = req.headers['authorization'];
-                if (!(typeof bearerHeader !== 'undefined')) return [3 /*break*/, 5];
-                bearer = bearerHeader.split(' ');
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, bookService.searchFlights(req)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                bearerToken = bearer[1];
-                tokenVerification = jwt.verify(bearerToken, 'shhhhh');
-                return [4 /*yield*/, bookService.searchFlights()];
-            case 2:
                 response = _a.sent();
                 if (response != null) {
                     res.statusCode = 200;
@@ -103,16 +96,13 @@ var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 
                     res.statusCode = 500;
                     return [2 /*return*/, res.json("failed to get flights")];
                 }
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 err_2 = _a.sent();
                 // if token is not valie
-                return [2 /*return*/, res.sendStatus(403)];
-            case 4: return [3 /*break*/, 6];
-            case 5: 
-            // Forbidden
-            return [2 /*return*/, res.sendStatus(403)];
-            case 6: return [2 /*return*/];
+                res.statusCode = 500;
+                return [2 /*return*/, res.json("something went wrong")];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
