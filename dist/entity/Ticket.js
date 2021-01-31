@@ -29,8 +29,12 @@ var Ticket = /** @class */ (function () {
     ], Ticket.prototype, "isApproved", void 0);
     __decorate([
         typeorm_1.Column(""),
+        __metadata("design:type", String)
+    ], Ticket.prototype, "status", void 0);
+    __decorate([
+        typeorm_1.Column(""),
         __metadata("design:type", Number)
-    ], Ticket.prototype, "qantity", void 0);
+    ], Ticket.prototype, "quantity", void 0);
     __decorate([
         typeorm_1.OneToOne(function (type) { return Flight_1.Flight; }),
         typeorm_1.JoinColumn(),

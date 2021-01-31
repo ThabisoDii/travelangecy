@@ -19,10 +19,13 @@ routes.use(function (req, res, next) {
     res.header("Access-Control-Allow-Methods", "Origin,X-Requested, Content-Type,Accept,Authorization,x-access-token");
     next();
 });
-routes.post("/register", RegistrationController_1.registerUser);
-routes.post("/login", LoginController_1.signIn);
+routes.post("/register", RegistrationController_1.registerUser); ///
+routes.post("/login", LoginController_1.signIn); ///
 routes.get("/get/flights", BookingController_1.getFlights);
-routes.post("/search/flights", BookingController_1.searchFlights);
-routes.post("/book-flight", BookingController_1.bookFlight);
-routes.post("/approve-ticket", AdminController_1.approveTicket);
+routes.post("/search/flights", BookingController_1.searchFlights); ///
+routes.post("/book-flight", BookingController_1.bookFlight); ///
+routes.post("/add-flight", AdminController_1.addFlight); ///
+routes.post("/approve-ticket", AdminController_1.approveTicket); /////
+routes.post("/decline-ticket", AdminController_1.declineTicket);
+routes.get("/pending-ticket", AdminController_1.getApprovalPendingTickets);
 exports.default = routes;

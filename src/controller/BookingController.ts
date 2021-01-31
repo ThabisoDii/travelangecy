@@ -42,7 +42,6 @@ export const getFlights = async(req:Request,res:Response): Promise<Response> => 
 
 }
 
-
 export const searchFlights = async(req:Request,res:Response): Promise<Response> => {
     // you can seach and view flights without logging in
     // Get token from array
@@ -68,6 +67,34 @@ export const searchFlights = async(req:Request,res:Response): Promise<Response> 
       return res.json("something went wrong");
     }
   
+
+}
+
+export const addFlight = async(req:Request,res:Response): Promise<Response> => {
+  // you can seach and view flights without logging in
+  // Get token from array
+  
+  try{
+
+    var response = await bookService.addFlight(req);
+
+    if(response != null){
+      
+        res.statusCode = 200;
+        return res.json(response);
+    }else{
+        res.statusCode = 500;
+        return res.json("failed to add flight");
+
+    }
+
+  }catch(err){
+
+    // if token is not valie
+    res.statusCode = 500;
+    return res.json("something went wrong");
+  }
+
 
 }
 

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.approveTicket = void 0;
+exports.addFlight = exports.getApprovalPendingTickets = exports.declineTicket = exports.approveTicket = void 0;
 var http = require('http');
 var Ticket_1 = require("../entity/Ticket");
 var http = require('http');
@@ -57,7 +57,9 @@ var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 
             case 2:
                 ticketToUpdate = _a.sent();
                 if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
-                ticketToUpdate.isApproved = req.body.isApproved;
+                //ticketToUpdate.isApproved = req.body.isApproved;
+                ticketToUpdate.isApproved = true;
+                ticketToUpdate.status = "approved";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
             case 3:
                 ticketToUpdate = _a.sent();
@@ -71,3 +73,72 @@ var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 
     });
 }); };
 exports.approveTicket = approveTicket;
+var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var ticketRepository, flightRepository, flight, ticketToUpdate, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
+                return [4 /*yield*/, flightRepository.findOne({ id: req.body.flightId })];
+            case 1:
+                flight = _a.sent();
+                return [4 /*yield*/, ticketRepository.findOne({ passanger_email: req.body.passanger_email, flight: flight })];
+            case 2:
+                ticketToUpdate = _a.sent();
+                if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
+                //ticketToUpdate.isApproved = req.body.isApproved;
+                ticketToUpdate.isApproved = false;
+                ticketToUpdate.status = "decline";
+                return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
+            case 3:
+                ticketToUpdate = _a.sent();
+                _a.label = 4;
+            case 4: return [2 /*return*/, ticketToUpdate];
+            case 5:
+                error_2 = _a.sent();
+                return [2 /*return*/, error_2];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); };
+exports.declineTicket = declineTicket;
+var getApprovalPendingTickets = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var ticketRepository, listOfTicketToApprove, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                return [4 /*yield*/, ticketRepository.find({ status: "pending" })];
+            case 1:
+                listOfTicketToApprove = _a.sent();
+                return [2 /*return*/, listOfTicketToApprove];
+            case 2:
+                error_3 = _a.sent();
+                return [2 /*return*/, error_3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getApprovalPendingTickets = getApprovalPendingTickets;
+var addFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var flightRepository, allFlight, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
+                return [4 /*yield*/, flightRepository.save(req.body)];
+            case 1:
+                allFlight = _a.sent();
+                return [2 /*return*/, allFlight];
+            case 2:
+                error_4 = _a.sent();
+                return [2 /*return*/, error_4];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.addFlight = addFlight;

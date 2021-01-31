@@ -11,7 +11,9 @@ export class Ticket {
     @Column()
     isApproved: boolean;
     @Column("")
-    qantity: number;
+    status: string;//pending approved or decline,if approved the boolean willbe chnaged to true if decline remain false but status change
+    @Column("")
+    quantity: number;
     @OneToOne(type => Flight)
     @JoinColumn()
     flight: Flight;

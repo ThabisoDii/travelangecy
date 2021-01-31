@@ -20,8 +20,6 @@ export const getFlights = async(req:Request,res:Response): Promise<any> => {
       }
 }
 
-
-
 export const searchFlights = async(req:Request,res:Response): Promise<any> => {
    
     try {
@@ -36,7 +34,6 @@ export const searchFlights = async(req:Request,res:Response): Promise<any> => {
       }
 }
 
-
 export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
     try {
@@ -45,7 +42,9 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
             let ticket = new Ticket();
             ticket.passanger_email = req.body.passanger_email.toLowerCase();
-            ticket.isApproved = req.body.isApproved;
+            ticket.isApproved = false;
+            ticket.status = "pending",
+            ticket.quantity = req.body.quantity;
 
             let flight = new Flight();
             flight.id = req.body.flight_id

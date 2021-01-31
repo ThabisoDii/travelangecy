@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
+exports.bookFlight = exports.addFlight = exports.searchFlights = exports.getFlights = void 0;
 var registerService = require('../service/RegistrationService');
 var bookService = require('../service/BookingService');
 var http = require('http');
@@ -107,8 +107,36 @@ var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 
     });
 }); };
 exports.searchFlights = searchFlights;
+var addFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, bookService.addFlight(req)];
+            case 1:
+                response = _a.sent();
+                if (response != null) {
+                    res.statusCode = 200;
+                    return [2 /*return*/, res.json(response)];
+                }
+                else {
+                    res.statusCode = 500;
+                    return [2 /*return*/, res.json("failed to add flight")];
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                // if token is not valie
+                res.statusCode = 500;
+                return [2 /*return*/, res.json("something went wrong")];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.addFlight = addFlight;
 var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_3;
+    var bearerHeader, bearer, bearerToken, tokenVerification, response, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -133,7 +161,7 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 }
                 return [3 /*break*/, 4];
             case 3:
-                err_3 = _a.sent();
+                err_4 = _a.sent();
                 // if token is not valie
                 return [2 /*return*/, res.sendStatus(403)];
             case 4: return [3 /*break*/, 6];
