@@ -43,7 +43,7 @@ export const declineTicket = async(req:Request,res:Response): Promise<any> => {
         if(ticketToUpdate !=null){
             //ticketToUpdate.isApproved = req.body.isApproved;
             ticketToUpdate.isApproved = false;
-            ticketToUpdate.status = "decline";
+            ticketToUpdate.status = "declined";
             ticketToUpdate = await ticketRepository.save(ticketToUpdate);
 
         }

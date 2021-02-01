@@ -92,7 +92,7 @@ var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 
                 _a.trys.push([1, 3, , 4]);
                 bearerToken = bearer[1];
                 tokenVerification = jwt.verify(bearerToken, 'shhhhh');
-                return [4 /*yield*/, adminService.declineTicket()];
+                return [4 /*yield*/, adminService.declineTicket(req)];
             case 2:
                 response = _a.sent();
                 if (response != null) {
@@ -101,7 +101,7 @@ var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 
                 }
                 else {
                     res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to book a ticket")];
+                    return [2 /*return*/, res.json("failed to decline a ticket")];
                 }
                 return [3 /*break*/, 4];
             case 3:

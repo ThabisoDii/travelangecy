@@ -38,6 +38,8 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
     try {
 
+        //check if the flight is already booked before and do not accept it if it is.look for ticket,if it exist rejects
+        //
             const ticktRepository = getRepository(Ticket);
 
             let ticket = new Ticket();
@@ -64,5 +66,17 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
       }
 }
 
+export const getUserApprovedTickets = async(req:any): Promise<any> => {
 
+    try {
+
+        const ticketRepository = getRepository(Ticket);
+        const allFlight = await ticketRepository.find({passanger_email: req.email, status: "approved",isApproved : true});
+        
+        return allFlight;
+        
+      } catch (error) {
+          return error;
+      }
+}
 

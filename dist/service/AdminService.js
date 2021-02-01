@@ -90,7 +90,7 @@ var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 
                 if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
                 //ticketToUpdate.isApproved = req.body.isApproved;
                 ticketToUpdate.isApproved = false;
-                ticketToUpdate.status = "decline";
+                ticketToUpdate.status = "declined";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
             case 3:
                 ticketToUpdate = _a.sent();

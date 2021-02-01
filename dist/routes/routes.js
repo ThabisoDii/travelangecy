@@ -22,10 +22,13 @@ routes.use(function (req, res, next) {
 routes.post("/register", RegistrationController_1.registerUser); ///
 routes.post("/login", LoginController_1.signIn); ///
 routes.get("/get/flights", BookingController_1.getFlights);
+///=====***standard user requests***=========
 routes.post("/search/flights", BookingController_1.searchFlights); ///
 routes.post("/book-flight", BookingController_1.bookFlight); ///
+routes.get("/user-approved-tickets", BookingController_1.getUserApprovedTickets);
+///=====***admin requests***=========
 routes.post("/add-flight", AdminController_1.addFlight); ///
-routes.post("/approve-ticket", AdminController_1.approveTicket); /////
-routes.post("/decline-ticket", AdminController_1.declineTicket);
-routes.get("/pending-ticket", AdminController_1.getApprovalPendingTickets);
+routes.post("/approve-ticket", AdminController_1.approveTicket); ///
+routes.post("/decline-ticket", AdminController_1.declineTicket); ///
+routes.get("/pending-ticket", AdminController_1.getApprovalPendingTickets); ///
 exports.default = routes;

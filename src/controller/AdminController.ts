@@ -53,14 +53,14 @@ export const declineTicket = async(req:Request,res:Response): Promise<Response> 
   
         const bearerToken = bearer[1];
         var tokenVerification  = jwt.verify(bearerToken,'shhhhh')
-        var response = await adminService.declineTicket();
+        var response = await adminService.declineTicket(req);
   
         if(response != null){
             res.statusCode = 200;
             return res.json(response);
         }else{
             res.statusCode = 500;
-            return res.json("failed to book a ticket");
+            return res.json("failed to decline a ticket");
     
         }
   

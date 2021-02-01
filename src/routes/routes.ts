@@ -4,7 +4,7 @@ const routes = Router();
 
 import {registerUser} from "../controller/RegistrationController"
 import {signIn} from "../controller/LoginController"
-import {getFlights,bookFlight,searchFlights} from "../controller/BookingController"
+import {getFlights,bookFlight,searchFlights,getUserApprovedTickets} from "../controller/BookingController"
 import {approveTicket,declineTicket,getApprovalPendingTickets,
 addFlight} from "../controller/AdminController"
 
@@ -23,13 +23,17 @@ routes.post("/register",registerUser);///
 routes.post("/login",signIn);///
 
 routes.get("/get/flights",getFlights);
+
+///=====***standard user requests***=========
 routes.post("/search/flights",searchFlights);///
 routes.post("/book-flight",bookFlight);///
-routes.post("/add-flight",addFlight);///
+routes.get("/user-approved-tickets",getUserApprovedTickets);
 
-routes.post("/approve-ticket",approveTicket);/////
-routes.post("/decline-ticket",declineTicket);
-routes.get("/pending-ticket",getApprovalPendingTickets);
+///=====***admin requests***=========
+routes.post("/add-flight",addFlight);///
+routes.post("/approve-ticket",approveTicket);///
+routes.post("/decline-ticket",declineTicket);///
+routes.get("/pending-ticket",getApprovalPendingTickets);///
 
 
 export default routes;

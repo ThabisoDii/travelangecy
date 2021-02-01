@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
+exports.getUserApprovedTickets = exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
 var http = require('http');
 var Ticket_1 = require("../entity/Ticket");
 var http = require('http');
@@ -112,3 +112,22 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
     });
 }); };
 exports.bookFlight = bookFlight;
+var getUserApprovedTickets = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+    var ticketRepository, allFlight, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                return [4 /*yield*/, ticketRepository.find({ passanger_email: req.email, status: "approved", isApproved: true })];
+            case 1:
+                allFlight = _a.sent();
+                return [2 /*return*/, allFlight];
+            case 2:
+                error_4 = _a.sent();
+                return [2 /*return*/, error_4];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getUserApprovedTickets = getUserApprovedTickets;
