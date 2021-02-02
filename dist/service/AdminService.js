@@ -105,20 +105,30 @@ var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 
 }); };
 exports.declineTicket = declineTicket;
 var getApprovalPendingTickets = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticketRepository, listOfTicketToApprove, error_3;
+    var flights, ticketObject, ticketRepository, listOfTicketToApprove, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
-                return [4 /*yield*/, ticketRepository.find({ status: "pending" })];
+                flights = [];
+                _a.label = 1;
             case 1:
-                listOfTicketToApprove = _a.sent();
-                return [2 /*return*/, listOfTicketToApprove];
+                _a.trys.push([1, 3, , 4]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                return [4 /*yield*/, ticketRepository.find({ relations: ["flight"] })];
             case 2:
+                listOfTicketToApprove = _a.sent();
+                listOfTicketToApprove.forEach(function (item) {
+                    if (item.status === 'pending') {
+                        var ticketDTO = new TicketDTO(item.flight.departure_airport, item.flight.departure_time, item.flight.departure_date, item.flight.arrival_airport, item.flight.arrival_time, item.flight.arrival_date);
+                        console.log(ticketDTO + "ppp");
+                        flights.push(ticketDTO);
+                    }
+                });
+                return [2 /*return*/, flights];
+            case 3:
                 error_3 = _a.sent();
                 return [2 /*return*/, error_3];
-            case 3: return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

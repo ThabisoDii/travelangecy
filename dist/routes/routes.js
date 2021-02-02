@@ -25,7 +25,7 @@ routes.get("/get/flights", BookingController_1.getFlights);
 ///=====***standard user requests***=========
 routes.post("/search/flights", BookingController_1.searchFlights); ///
 routes.post("/book-flight", BookingController_1.bookFlight); ///
-routes.get("/user-approved-tickets", BookingController_1.getUserApprovedTickets);
+routes.get("/user-approved-tickets", BookingController_1.getUserApprovedTickets); ///
 ///=====***admin requests***=========
 routes.post("/add-flight", AdminController_1.addFlight); ///
 routes.post("/approve-ticket", AdminController_1.approveTicket); ///

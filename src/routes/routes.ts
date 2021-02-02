@@ -27,7 +27,7 @@ routes.get("/get/flights",getFlights);
 ///=====***standard user requests***=========
 routes.post("/search/flights",searchFlights);///
 routes.post("/book-flight",bookFlight);///
-routes.get("/user-approved-tickets",getUserApprovedTickets);
+routes.get("/user-approved-tickets",getUserApprovedTickets);///
 
 ///=====***admin requests***=========
 routes.post("/add-flight",addFlight);///

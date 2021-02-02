@@ -56,13 +56,30 @@ export const declineTicket = async(req:Request,res:Response): Promise<any> => {
 
 export const getApprovalPendingTickets = async(req:Request,res:Response): Promise<any> => {
 
+    var flights: any[]= [];
+    var ticketObject:any;
     try {
 
+        
         const ticketRepository = getRepository(Ticket);
     
-        const listOfTicketToApprove = await ticketRepository.find({ status: "pending"}); //and operator with tyeorm
+        const listOfTicketToApprove = await ticketRepository.find({ relations: ["flight"]}); //and operator with tyeorm
 
-         return listOfTicketToApprove;
+        listOfTicketToApprove.forEach(function(item) {
+
+            if(item.status === 'pending'){
+             
+                
+                var ticketDTO = new TicketDTO(item.flight.departure_airport,item.flight.departure_time,item.flight.departure_date,
+                                                item.flight.arrival_airport,item.flight.arrival_time,item.flight.arrival_date);
+
+                                                console.log(ticketDTO+"ppp")
+                flights.push(ticketDTO);
+            }
+            
+        });
+
+         return flights;
         
       } catch (error) {
           return error;
