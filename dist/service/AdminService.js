@@ -43,63 +43,57 @@ var http = require('http');
 var Flight_1 = require("../entity/Flight");
 var typeorm_1 = require("typeorm");
 var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticketRepository, flightRepository, flight, ticketToUpdate, error_1;
+    var ticketRepository, flightRepository, ticketToUpdate, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
+                _a.trys.push([0, 4, , 5]);
                 ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
                 flightRepository = typeorm_1.getRepository(Flight_1.Flight);
-                return [4 /*yield*/, flightRepository.findOne({ id: req.body.flightId })];
+                console.log(req.body.ticketId + "iiiid");
+                return [4 /*yield*/, ticketRepository.findOne({ id: req.body.ticketId })];
             case 1:
-                flight = _a.sent();
-                return [4 /*yield*/, ticketRepository.findOne({ passanger_email: req.body.passanger_email, flight: flight })];
-            case 2:
                 ticketToUpdate = _a.sent();
-                if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
+                if (!(ticketToUpdate != null)) return [3 /*break*/, 3];
                 //ticketToUpdate.isApproved = req.body.isApproved;
                 ticketToUpdate.isApproved = true;
                 ticketToUpdate.status = "approved";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
-            case 3:
+            case 2:
                 ticketToUpdate = _a.sent();
-                _a.label = 4;
-            case 4: return [2 /*return*/, ticketToUpdate];
-            case 5:
+                _a.label = 3;
+            case 3: return [2 /*return*/, ticketToUpdate];
+            case 4:
                 error_1 = _a.sent();
                 return [2 /*return*/, error_1];
-            case 6: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
 exports.approveTicket = approveTicket;
 var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticketRepository, flightRepository, flight, ticketToUpdate, error_2;
+    var ticketRepository, ticketToUpdate, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
+                _a.trys.push([0, 4, , 5]);
                 ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
-                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
-                return [4 /*yield*/, flightRepository.findOne({ id: req.body.flightId })];
+                return [4 /*yield*/, ticketRepository.findOne({ id: req.body.ticketId })];
             case 1:
-                flight = _a.sent();
-                return [4 /*yield*/, ticketRepository.findOne({ passanger_email: req.body.passanger_email, flight: flight })];
-            case 2:
                 ticketToUpdate = _a.sent();
-                if (!(ticketToUpdate != null)) return [3 /*break*/, 4];
+                if (!(ticketToUpdate != null)) return [3 /*break*/, 3];
                 //ticketToUpdate.isApproved = req.body.isApproved;
                 ticketToUpdate.isApproved = false;
                 ticketToUpdate.status = "declined";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
-            case 3:
+            case 2:
                 ticketToUpdate = _a.sent();
-                _a.label = 4;
-            case 4: return [2 /*return*/, ticketToUpdate];
-            case 5:
+                _a.label = 3;
+            case 3: return [2 /*return*/, ticketToUpdate];
+            case 4:
                 error_2 = _a.sent();
                 return [2 /*return*/, error_2];
-            case 6: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); };
@@ -119,9 +113,9 @@ var getApprovalPendingTickets = function (req, res) { return __awaiter(void 0, v
                 listOfTicketToApprove = _a.sent();
                 listOfTicketToApprove.forEach(function (item) {
                     if (item.status === 'pending') {
-                        var ticketDTO = new TicketDTO(item.flight.departure_airport, item.flight.departure_time, item.flight.departure_date, item.flight.arrival_airport, item.flight.arrival_time, item.flight.arrival_date);
-                        console.log(ticketDTO + "ppp");
-                        flights.push(ticketDTO);
+                        var formData = { ticketId: item.id, departure_airport: item.flight.departure_airport, departure_time: item.flight.departure_time, departure_date: item.flight.departure_date,
+                            arrival_airport: item.flight.arrival_airport, arrival_time: item.flight.arrival_time, arrival_date: item.flight.arrival_date };
+                        flights.push(formData);
                     }
                 });
                 return [2 /*return*/, flights];

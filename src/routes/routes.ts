@@ -4,7 +4,7 @@ const routes = Router();
 
 import {registerUser} from "../controller/RegistrationController"
 import {signIn} from "../controller/LoginController"
-import {getFlights,bookFlight,searchFlights,getUserApprovedTickets} from "../controller/BookingController"
+import {getFlights,bookFlight,searchFlights,getUserApprovedTickets,getUserPendingApprovalTickets} from "../controller/BookingController"
 import {approveTicket,declineTicket,getApprovalPendingTickets,
 addFlight} from "../controller/AdminController"
 
@@ -28,6 +28,7 @@ routes.get("/get/flights",getFlights);
 routes.post("/search/flights",searchFlights);///
 routes.post("/book-flight",bookFlight);///
 routes.get("/user-approved-tickets",getUserApprovedTickets);///
+routes.get("/user-pending-tickets",getUserPendingApprovalTickets);///
 
 ///=====***admin requests***=========
 routes.post("/add-flight",addFlight);///

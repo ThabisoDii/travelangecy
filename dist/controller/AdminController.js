@@ -63,7 +63,7 @@ var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 
                 }
                 else {
                     res.statusCode = 500;
-                    return [2 /*return*/, res.json("failed to book a ticket")];
+                    return [2 /*return*/, res.json("failed to approve a ticket")];
                 }
                 return [3 /*break*/, 4];
             case 3:

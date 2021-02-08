@@ -68,15 +68,57 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
 
 export const getUserApprovedTickets = async(req:any): Promise<any> => {
 
+    var flights: any[]= [];
     try {
 
         const ticketRepository = getRepository(Ticket);
-        const allFlight = await ticketRepository.find({passanger_email: req.email, status: "approved",isApproved : true});
-        
-        return allFlight;
+        const userApprovedTickets = await ticketRepository.find({ relations: ["flight"]});
+
+        userApprovedTickets.forEach(function(item) {
+
+            if(item.status === 'approved'){
+
+                 const formData = { departure_airport :item.flight.departure_airport,departure_time : item.flight.departure_time,departure_date : item.flight.departure_date,
+                 arrival_airport : item.flight.arrival_airport, arrival_time : item.flight.arrival_time,arrival_date : item.flight.arrival_date};
+
+                flights.push(formData);
+            }
+            
+        });
+
+         return flights;
         
       } catch (error) {
           return error;
       }
 }
+
+export const getUserPendingApprovalTickets = async(req:any): Promise<any> => {
+
+    var flights: any[]= [];
+    try {
+
+        const ticketRepository = getRepository(Ticket);
+        const userApprovedTickets = await ticketRepository.find({ relations: ["flight"]});
+
+        userApprovedTickets.forEach(function(item) {
+
+            if(item.status === 'pending'){
+
+                 const formData = { departure_airport :item.flight.departure_airport,departure_time : item.flight.departure_time,departure_date : item.flight.departure_date,
+                 arrival_airport : item.flight.arrival_airport, arrival_time : item.flight.arrival_time,arrival_date : item.flight.arrival_date};
+
+                flights.push(formData);
+            }
+            
+        });
+
+         return flights;
+        
+      } catch (error) {
+          return error;
+      }
+}
+
+
 

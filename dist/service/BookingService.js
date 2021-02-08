@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUserApprovedTickets = exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
+exports.getUserPendingApprovalTickets = exports.getUserApprovedTickets = exports.bookFlight = exports.searchFlights = exports.getFlights = void 0;
 var http = require('http');
 var Ticket_1 = require("../entity/Ticket");
 var http = require('http');
@@ -113,21 +113,60 @@ var bookFlight = function (req, res) { return __awaiter(void 0, void 0, void 0, 
 }); };
 exports.bookFlight = bookFlight;
 var getUserApprovedTickets = function (req) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticketRepository, allFlight, error_4;
+    var flights, ticketRepository, userApprovedTickets, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
-                return [4 /*yield*/, ticketRepository.find({ passanger_email: req.email, status: "approved", isApproved: true })];
+                flights = [];
+                _a.label = 1;
             case 1:
-                allFlight = _a.sent();
-                return [2 /*return*/, allFlight];
+                _a.trys.push([1, 3, , 4]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                return [4 /*yield*/, ticketRepository.find({ relations: ["flight"] })];
             case 2:
+                userApprovedTickets = _a.sent();
+                userApprovedTickets.forEach(function (item) {
+                    if (item.status === 'approved') {
+                        var formData = { departure_airport: item.flight.departure_airport, departure_time: item.flight.departure_time, departure_date: item.flight.departure_date,
+                            arrival_airport: item.flight.arrival_airport, arrival_time: item.flight.arrival_time, arrival_date: item.flight.arrival_date };
+                        flights.push(formData);
+                    }
+                });
+                return [2 /*return*/, flights];
+            case 3:
                 error_4 = _a.sent();
                 return [2 /*return*/, error_4];
-            case 3: return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); };
 exports.getUserApprovedTickets = getUserApprovedTickets;
+var getUserPendingApprovalTickets = function (req) { return __awaiter(void 0, void 0, void 0, function () {
+    var flights, ticketRepository, userApprovedTickets, error_5;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                flights = [];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
+                return [4 /*yield*/, ticketRepository.find({ relations: ["flight"] })];
+            case 2:
+                userApprovedTickets = _a.sent();
+                userApprovedTickets.forEach(function (item) {
+                    if (item.status === 'pending') {
+                        var formData = { departure_airport: item.flight.departure_airport, departure_time: item.flight.departure_time, departure_date: item.flight.departure_date,
+                            arrival_airport: item.flight.arrival_airport, arrival_time: item.flight.arrival_time, arrival_date: item.flight.arrival_date };
+                        flights.push(formData);
+                    }
+                });
+                return [2 /*return*/, flights];
+            case 3:
+                error_5 = _a.sent();
+                return [2 /*return*/, error_5];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.getUserPendingApprovalTickets = getUserPendingApprovalTickets;

@@ -13,8 +13,9 @@ export const approveTicket = async(req:Request,res:Response): Promise<any> => {
         const ticketRepository = getRepository(Ticket);
         const flightRepository = getRepository(Flight);
 
-        let flight = await flightRepository.findOne({id: req.body.flightId});
-        let ticketToUpdate = await ticketRepository.findOne({ passanger_email: req.body.passanger_email,flight}); //and operator with tyeorm
+        console.log(req.body.ticketId+"iiiid")
+        //let flight = await flightRepository.findOne({id: req.body.flightId});
+        let ticketToUpdate = await ticketRepository.findOne({ id: req.body.ticketId}); //and operator with tyeorm
 
         if(ticketToUpdate !=null){
             //ticketToUpdate.isApproved = req.body.isApproved;
@@ -35,10 +36,10 @@ export const declineTicket = async(req:Request,res:Response): Promise<any> => {
     try {
 
         const ticketRepository = getRepository(Ticket);
-        const flightRepository = getRepository(Flight);
+      //  const flightRepository = getRepository(Flight);
 
-        let flight = await flightRepository.findOne({id: req.body.flightId});
-        let ticketToUpdate = await ticketRepository.findOne({ passanger_email: req.body.passanger_email,flight}); //and operator with tyeorm
+       // let flight = await flightRepository.findOne({id: req.body.flightId});
+        let ticketToUpdate = await ticketRepository.findOne({ id: req.body.ticketId}); //and operator with tyeorm
 
         if(ticketToUpdate !=null){
             //ticketToUpdate.isApproved = req.body.isApproved;
@@ -68,13 +69,11 @@ export const getApprovalPendingTickets = async(req:Request,res:Response): Promis
         listOfTicketToApprove.forEach(function(item) {
 
             if(item.status === 'pending'){
-             
-                
-                var ticketDTO = new TicketDTO(item.flight.departure_airport,item.flight.departure_time,item.flight.departure_date,
-                                                item.flight.arrival_airport,item.flight.arrival_time,item.flight.arrival_date);
 
-                                                console.log(ticketDTO+"ppp")
-                flights.push(ticketDTO);
+                 const formData = { ticketId :item.id ,departure_airport :item.flight.departure_airport,departure_time : item.flight.departure_time,departure_date : item.flight.departure_date,
+                 arrival_airport : item.flight.arrival_airport, arrival_time : item.flight.arrival_time,arrival_date : item.flight.arrival_date};
+
+                flights.push(formData);
             }
             
         });

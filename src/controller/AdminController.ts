@@ -25,7 +25,7 @@ const bearerHeader = req.headers['authorization'];
           return res.json(response);
       }else{
           res.statusCode = 500;
-          return res.json("failed to book a ticket");
+          return res.json("failed to approve a ticket");
   
       }
 
