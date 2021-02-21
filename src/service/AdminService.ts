@@ -11,14 +11,10 @@ export const approveTicket = async(req:Request,res:Response): Promise<any> => {
     try {
 
         const ticketRepository = getRepository(Ticket);
-        const flightRepository = getRepository(Flight);
 
-        console.log(req.body.ticketId+"iiiid")
-        //let flight = await flightRepository.findOne({id: req.body.flightId});
         let ticketToUpdate = await ticketRepository.findOne({ id: req.body.ticketId}); //and operator with tyeorm
 
         if(ticketToUpdate !=null){
-            //ticketToUpdate.isApproved = req.body.isApproved;
             ticketToUpdate.isApproved = true;
             ticketToUpdate.status = "approved";
             ticketToUpdate = await ticketRepository.save(ticketToUpdate);
@@ -36,13 +32,10 @@ export const declineTicket = async(req:Request,res:Response): Promise<any> => {
     try {
 
         const ticketRepository = getRepository(Ticket);
-      //  const flightRepository = getRepository(Flight);
 
-       // let flight = await flightRepository.findOne({id: req.body.flightId});
         let ticketToUpdate = await ticketRepository.findOne({ id: req.body.ticketId}); //and operator with tyeorm
 
         if(ticketToUpdate !=null){
-            //ticketToUpdate.isApproved = req.body.isApproved;
             ticketToUpdate.isApproved = false;
             ticketToUpdate.status = "declined";
             ticketToUpdate = await ticketRepository.save(ticketToUpdate);

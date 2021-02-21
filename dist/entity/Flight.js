@@ -42,6 +42,10 @@ var Flight = /** @class */ (function () {
         typeorm_1.Column("text"),
         __metadata("design:type", String)
     ], Flight.prototype, "arrival_time", void 0);
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", Boolean)
+    ], Flight.prototype, "includesHotel", void 0);
     Flight = __decorate([
         typeorm_1.Entity()
     ], Flight);

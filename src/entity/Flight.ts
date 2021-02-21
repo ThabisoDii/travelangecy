@@ -17,6 +17,8 @@ export class Flight {
     departure_time: string;// timestamp type
     @Column("text")
     arrival_time: string;
+    @Column()
+    includesHotel: boolean;
     
     
 

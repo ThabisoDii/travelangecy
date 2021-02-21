@@ -43,19 +43,16 @@ var http = require('http');
 var Flight_1 = require("../entity/Flight");
 var typeorm_1 = require("typeorm");
 var approveTicket = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var ticketRepository, flightRepository, ticketToUpdate, error_1;
+    var ticketRepository, ticketToUpdate, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
                 ticketRepository = typeorm_1.getRepository(Ticket_1.Ticket);
-                flightRepository = typeorm_1.getRepository(Flight_1.Flight);
-                console.log(req.body.ticketId + "iiiid");
                 return [4 /*yield*/, ticketRepository.findOne({ id: req.body.ticketId })];
             case 1:
                 ticketToUpdate = _a.sent();
                 if (!(ticketToUpdate != null)) return [3 /*break*/, 3];
-                //ticketToUpdate.isApproved = req.body.isApproved;
                 ticketToUpdate.isApproved = true;
                 ticketToUpdate.status = "approved";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
@@ -82,7 +79,6 @@ var declineTicket = function (req, res) { return __awaiter(void 0, void 0, void 
             case 1:
                 ticketToUpdate = _a.sent();
                 if (!(ticketToUpdate != null)) return [3 /*break*/, 3];
-                //ticketToUpdate.isApproved = req.body.isApproved;
                 ticketToUpdate.isApproved = false;
                 ticketToUpdate.status = "declined";
                 return [4 /*yield*/, ticketRepository.save(ticketToUpdate)];
