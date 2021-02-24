@@ -71,7 +71,6 @@ var searchFlights = function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, flightRepository.find({ departure_airport: req.body.departure_airport, arrival_airport: req.body.arrival_airport, departure_date: req.body.departure_date, arrival_date: req.body.arrival_date })];
             case 1:
                 allFlight = _a.sent();
-                console.log(allFlight + "f");
                 return [2 /*return*/, allFlight];
             case 2:
                 error_2 = _a.sent();
@@ -126,7 +125,7 @@ var getUserApprovedTickets = function (req) { return __awaiter(void 0, void 0, v
             case 2:
                 userApprovedTickets = _a.sent();
                 userApprovedTickets.forEach(function (item) {
-                    if (item.status === 'approved') {
+                    if (item.status === 'approved' && req.email === item.passanger_email) {
                         var formData = { departure_airport: item.flight.departure_airport, departure_time: item.flight.departure_time, departure_date: item.flight.departure_date,
                             arrival_airport: item.flight.arrival_airport, arrival_time: item.flight.arrival_time, arrival_date: item.flight.arrival_date };
                         flights.push(formData);
@@ -155,7 +154,7 @@ var getUserPendingApprovalTickets = function (req) { return __awaiter(void 0, vo
             case 2:
                 userApprovedTickets = _a.sent();
                 userApprovedTickets.forEach(function (item) {
-                    if (item.status === 'pending') {
+                    if (item.status === 'pending' && req.email === item.passanger_email) {
                         var formData = { departure_airport: item.flight.departure_airport, departure_time: item.flight.departure_time, departure_date: item.flight.departure_date,
                             arrival_airport: item.flight.arrival_airport, arrival_time: item.flight.arrival_time, arrival_date: item.flight.arrival_date };
                         flights.push(formData);

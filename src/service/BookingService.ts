@@ -26,7 +26,7 @@ export const searchFlights = async(req:Request,res:Response): Promise<any> => {
        
         const flightRepository = getRepository(Flight);
         const allFlight = await flightRepository.find({ departure_airport: req.body.departure_airport, arrival_airport: req.body.arrival_airport,departure_date: req.body.departure_date, arrival_date: req.body.arrival_date });
-        console.log(allFlight +"f")
+        
         return allFlight;
         
       } catch (error) {
@@ -76,7 +76,7 @@ export const getUserApprovedTickets = async(req:any): Promise<any> => {
 
         userApprovedTickets.forEach(function(item) {
 
-            if(item.status === 'approved'){
+            if(item.status === 'approved' && req.email === item.passanger_email){
 
                  const formData = { departure_airport :item.flight.departure_airport,departure_time : item.flight.departure_time,departure_date : item.flight.departure_date,
                  arrival_airport : item.flight.arrival_airport, arrival_time : item.flight.arrival_time,arrival_date : item.flight.arrival_date};
@@ -103,7 +103,7 @@ export const getUserPendingApprovalTickets = async(req:any): Promise<any> => {
 
         userApprovedTickets.forEach(function(item) {
 
-            if(item.status === 'pending'){
+            if(item.status === 'pending' && req.email === item.passanger_email){
 
                  const formData = { departure_airport :item.flight.departure_airport,departure_time : item.flight.departure_time,departure_date : item.flight.departure_date,
                  arrival_airport : item.flight.arrival_airport, arrival_time : item.flight.arrival_time,arrival_date : item.flight.arrival_date};
