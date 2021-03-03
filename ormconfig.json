@@ -1,10 +1,10 @@
 {
     "type": "postgres",
-    "host": "localhost",
+    "host": "noni-travel.c4hzilvdafwf.us-east-2.rds.amazonaws.com",
     "port": 5432,
     "username": "postgres",
-    "password": "admin",
-    "database": "travel_agency",
+    "password": "Traveling123",
+    "database": "noni-travel",
     "synchronize": true,
     "logging": false,
     "entities": [
