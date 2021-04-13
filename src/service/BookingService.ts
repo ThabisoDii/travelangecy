@@ -34,22 +34,25 @@ export const searchFlights = async(req:Request,res:Response): Promise<any> => {
       }
 }
 
-export const bookFlight = async(req:Request,res:Response): Promise<any> => {
+export const bookFlight = async(req:Request,tokenVerification:any,res:Response): Promise<any> => {
 
     try {
 
         //check if the flight is already booked before and do not accept it if it is.look for ticket,if it exist rejects
         //
+        console.log(req.body)
+        
             const ticktRepository = getRepository(Ticket);
 
             let ticket = new Ticket();
-            ticket.passanger_email = req.body.passanger_email.toLowerCase();
+            ticket.passanger_email = tokenVerification.userDetails.email.toLowerCase();
             ticket.isApproved = false;
             ticket.status = "pending",
-            ticket.quantity = req.body.quantity;
+            ticket.quantity = 1;
+            console.log(ticket)
 
             let flight = new Flight();
-            flight.id = req.body.flight_id
+            flight.id = req.body.id
             flight.departure_airport = req.body.departure_airport;
             flight.arrival_airport = req.body.arrival_airport;
             flight.departure_date = req.body.departure_date;
@@ -58,6 +61,9 @@ export const bookFlight = async(req:Request,res:Response): Promise<any> => {
             ticket.flight = flight;
         
             const theTicket = await ticktRepository.save(ticket);
+
+            console.log("hererererere")
+
         
         return ticket;
         

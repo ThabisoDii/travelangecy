@@ -112,7 +112,7 @@ export const bookFlight = async(req:Request,res:Response): Promise<Response> => 
 
       const bearerToken = bearer[1];
       var tokenVerification  = jwt.verify(bearerToken,'shhhhh')
-      var response = await bookService.bookFlight(req);
+      var response = await bookService.bookFlight(req,tokenVerification);
 
       if(response != null){
           res.statusCode = 200;
