@@ -62,7 +62,6 @@ export const bookFlight = async(req:Request,tokenVerification:any,res:Response):
         
             const theTicket = await ticktRepository.save(ticket);
 
-            console.log("hererererere")
 
         
         return ticket;
